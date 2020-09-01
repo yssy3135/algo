@@ -46,7 +46,7 @@ public class Solution14 {
 
 }
 
-
+//**************************************************************
 //최적 참고 풀이
 //public String longestCommonPrefix(String[] strs) {
 //    if (strs.length == 0) return "";
