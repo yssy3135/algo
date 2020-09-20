@@ -42,13 +42,18 @@ public class Solution24 {
 	
 		System.out.println(arr[n][1]);
 		
-		
-	
-		
-		
+
 	}
 	
-	
 
-	
 }
+
+
+/*
+ * 동적 프로그래밍의 bottom top 방식 가장 밑의 바로 위부터 시작하며 Math.max(arr[i-1][j],
+ * arr[i-1][j+1]); 라는 점화식을 이용하여 큰 수를 더하면서 올라온다. 맨위의 수롤 return 하면 자연스레 가장 큰 수를
+ * 가지게 된다.
+ */
+
+
+
