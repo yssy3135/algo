@@ -19,7 +19,7 @@ public class Solution25 {
 		
 		dp[1] = arr[1];
 		for(int i = 2; i <=n ; i++) {
-			dp[i] = arr[i]	// 자신의 값을 dp[i] 로 초기화
+			dp[i] = arr[i];	// 자신의 값을 dp[i] 로 초기화
 			for(int j = 1 ; j < i;j++) {
 				if(arr[i] > arr[j]) { // 내가 작아야 더하면서  DP[I] 에 값을 넣음 
 					dp[i] = Math.max(dp[j]+arr[i], dp[i]);
