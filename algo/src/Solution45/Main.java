@@ -15,7 +15,7 @@ public class Main {
 		int N = sc.nextInt();
 		int K = sc.nextInt();
 		
-		
+	
 		int cnt[] = new int[100000+1];
 		
 
