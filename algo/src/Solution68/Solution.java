@@ -1,11 +1,10 @@
 package Solution68;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
+
 
 public class Solution {
 	public static void main(String[] args) {
@@ -16,32 +15,33 @@ public class Solution {
     public static int[] solution(String msg) {
         int[] answer = {};
         
-        Map<Integer, String> map = new HashMap<Integer, String>();
+        Map<String, Integer> map = new HashMap<String, Integer>();
         
         
         for(int i = 1 ; i < 27;i++) {
         	char a = (char) (64+i);
-        	map.put(i, Character.toString(a));
+        	map.put(Character.toString(a), i);
         }
         String word[] = msg.split("");
-        dic(map,word);
+        answer = dic(map,word);
         
         
         return answer;
     }
     
-    public static void dic(Map<Integer, String> map ,String word[]) {
+    public static int[] dic(Map<String, Integer> map ,String word[]) {
     	
     	int cnt = 26;
     	boolean flag = false;
-    	ArrayList<String> list = new ArrayList<String>();
-    	StringBuilder sb = new StringBuilder();
+    	ArrayList<Integer> list = new ArrayList<Integer>();
+   
     	//등록 여부
     	for(int i = 0 ; i < word.length;i++) {
     		String w = word[i];
     		
     		
-    		while(map.containsValue(w)) {
+    		System.out.println(w);
+    		while(map.containsKey(w)) {
     			i++;
     			
     			if( i == word.length) {
@@ -53,20 +53,24 @@ public class Solution {
     		}
     		
     		if(flag) {
-    			list.add(w);
+    			list.add(map.get(w));
     			break;
     		}
     		
-    		System.out.println();
-    		cnt++;
-    		map.put(cnt, w);
-    		System.out.println(w);
+    		list.add(map.get(w.substring(0, w.length()-1)));
+    		map.put(w, ++cnt);
     		
-    	
+    		i--;
     	}
     	
     	
+    	System.out.println(list.toString());
     	
+    	
+    	Integer arr[] = list.toArray(new Integer[0]);
+    	int ar[] = Arrays.stream(arr).mapToInt(Integer::intValue).toArray();
+    	
+		return ar;
     	
     };
     
