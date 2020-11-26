@@ -2,7 +2,7 @@ package algo;
 
 import java.util.Scanner;
 
-public class Solution25 {
+public class Solution26 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -17,7 +17,7 @@ public class Solution25 {
 		
 		
 		
-	
+		dp[1] = 1;
 		for(int i = 2; i <=n ; i++) {
 			dp[i] = 1;
 			for(int j = 1 ; j <i;j++) {

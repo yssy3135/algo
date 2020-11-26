@@ -15,20 +15,16 @@ public class Main {
 			arr[i] = sc.nextInt();
 		}
 		
-		max = 0;
 		dp[0] =arr[0];
-		for(int i = 1 ; i< num ; i++) {
+		max = dp[0];
+		for(int i = 0 ; i< num ; i++) {
 			
 			dp[i] =Math.max(arr[i], arr[i] + dp[i-1]);
 			
 			max = Math.max(max, dp[i]);
 		}
 		
-		for(int i = 0 ; i< num ; i++) {
-			
-			System.out.print(dp[i]+ " ");
-		}
-		System.out.println();
+
 		System.out.println(max);
 		
 	}
