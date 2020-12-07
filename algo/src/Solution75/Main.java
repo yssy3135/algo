@@ -1,109 +1,99 @@
 package Solution75;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+	
+	public static int wheel[][];
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		String wheel[] = new String[4];
-		int ans = 0;
-		for(int i = 0 ;i  < wheel.length;i++) {
-			wheel[i] = sc.next();
-		}
 		
+		
+		wheel = new int[4][8];
+		
+		for(int i = 0 ;i  < wheel.length;i++) {
+			String s = sc.next();
+			for(int j = 0 ; j < s.length(); j++) {
+				wheel[i][j] = s.charAt(j) - '0';
+			}
+		}
+	
 		int times = sc.nextInt();
 		
 		int spin[][] = new int[times][2];
 		for(int i = 0 ; i < times; i++) {
-			spin[i][0] = sc.nextInt();  //회전 바퀴번호
+			spin[i][0] = sc.nextInt()-1;  //회전 바퀴번호
 			spin[i][1] = sc.nextInt();  //회전 방향
-		}
-		
-		for(int i = 0 ; i < times; i++) {
-			int wheelnum = spin[i][0];
-			int way = spin[i][1];
 			
-			System.out.println(wheel[wheelnum-1]);
-			String pole = "";
-			
-			pole = rotate(wheel, way, wheelnum);
-			wheel[wheelnum-1] = pole;
-			
-			// 인근 -1,+1 인 바퀴와 비교해서 회전시켜야함 
-			
-			if(wheelnum == 0 ) {
-				if(!wheel[wheelnum].substring(6, 7).equals(wheel[wheelnum-1].substring(2, 3))) {
-					String pole2 = rotate(wheel,way == 0 ? 1 : 0,wheelnum);
-				}
-				
-			}else if (wheelnum == 1) {
-				
-			}else if (wheelnum == 2) {
-				
-			}else if (wheelnum == 3) {
-				
-			}
-
-		}
-		System.out.println("------------------------");
-		for(int i = 0 ;i  < wheel.length;i++) {
-			System.out.println(wheel[i]);
-		}
-		
-		for(int i = 0 ; i < wheel.length;i++) {
-			String twelve = wheel[i].substring(0, 1);
-			
-			if(i == 0) {
-				if(twelve.equals("0")) {
-					continue;
-				}else {
-					ans += 1;
-				}
-			}else if(i == 1) {
-				if(twelve.equals("0")) {
-					continue;
-				}else {
-					ans += 2;
-				}
-				
-			}else if(i == 2) {
-				if(twelve.equals("0")) {
-					continue;
-				}else {
-					ans += 4;
-				}
-			}else if(i == 3) {
-				if(twelve.equals("0")) {
-					continue;
-				}else {
-					ans += 8;
-				}
-			}
-			
+			start(spin[i][0],spin[i][1]);
 			
 		}
 		
+        int ans = 0;
+        for (int i = 0; i < 4; i++) {
+            if(i == 0) {
+            	ans += wheel[i][0] == 1 ? 1 :0;
+            }else if(i ==1) {
+            	ans += wheel[i][0] == 1 ? 2 :0;
+            }else if(i ==2) {
+            	ans += wheel[i][0] == 1 ? 4 :0;
+            }else if(i ==3) {
+            	ans += wheel[i][0] == 1 ? 8 :0;
+            }
+            
+        }
+        
 		System.out.println(ans);
 		
 	}
-	
-	public static String rotate(String wheel[],int way,int wheelnum) {
-		String pole = "";
-		if(way == 1) { //시계방향 회전 (맨뒤 것을 맨 앞으로 붙힌다.)
-			String last = wheel[wheelnum-1].substring(wheel[wheelnum-1].length()-1, wheel[wheelnum-1].length());
-			pole = wheel[wheelnum-1].substring(0,wheel[wheelnum-1].length()-1);
-			pole = last+pole;
-			System.out.println(pole+"회전");
-		}else {// 반시계방향 회전(맨앞것을 맨뒤로)
-			String first = wheel[wheelnum-1].substring(0,1);
-			pole = wheel[wheelnum-1].substring(1,wheel[wheelnum-1].length());
-			pole = pole+first;
-			System.out.println(pole+"회전");
+	public static void start(int index,int way) {
+		left(index-1,-way);
+		right(index+1,-way);
+		rotate(index,way);
+	}
+	public static void left(int index,int way) {
+		if(index<0) return;
+		
+		if(wheel[index][2] != wheel[index+1][6]) {
+			left(index-1 ,-way);
+			rotate(index,way);
 		}
-		return pole;
+		
+	}
+	public static void right(int index,int way) {
+		if(index>3) return;
+		
+		if(wheel[index][6] != wheel[index-1][2]) {
+			right(index+1 ,-way);
+			rotate(index,way);
+		}
+		
 	}
 	
+	public static void rotate(int idx,int way) {
+		
+		// 시계방향
+		if(way == 1) { 
+			int tmp = wheel[idx][7];
+			
+			for(int i = 7 ; i > 0  ; i--) {
+				wheel[idx][i] = wheel[idx][i-1];
+			}
+			wheel[idx][0] =	 tmp;
+			
+		// 반시계 방향
+		}else if( way == -1) {
+			int tmp = wheel[idx][0];
+			for(int i = 0 ; i < 7;i++) {
+				wheel[idx][i] = wheel[idx][i+1];
+			}
+			wheel[idx][7] = tmp;
+			
+		}
+		
+	}
+	
+
 	
 }
 
