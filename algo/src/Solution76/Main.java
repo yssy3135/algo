@@ -33,7 +33,7 @@ public class Main {
 //			}
 //			System.out.println();
 //		}
-		
+//		
 		System.out.println(ans);
 		
 		
@@ -56,9 +56,9 @@ public class Main {
 	}
 	public static void search(int i,int j,int way) {
 		
-		if(j <0 || j >=m-1 || i<0 || i >=n-1) return;
+		if(j <1 || j >=m-1 || i<1 || i >=n-1) return;
 		
-		if(j-1 >-1 && way == 0) {
+		if( way == 0) {
 			if(arr[i][j-1] == 0 && way == 0) { //탐색시 가능한 구역이있다.
 				way = 3;
 				j--;
@@ -72,7 +72,7 @@ public class Main {
 					search(i,j,way);
 				}
 			}
-		}else if(i+1<n && way == 3) {
+		}else if( way == 3) {
 			if(arr[i+1][j] == 0  && way == 3){
 				way = 2;
 				i++;
@@ -88,7 +88,7 @@ public class Main {
 				}
 				
 			}
-		}else if(j+1<n  && way == 2) {
+		}else if( way == 2) {
 			if(arr[i][j+1] == 0  && way == 2) {
 				way = 1;
 				j++;
@@ -103,7 +103,7 @@ public class Main {
 					
 				}
 			}
-		}else if(i-1>-1  && way == 1) {
+		}else if( way == 1) {
 			if(arr[i-1][j] == 0  && way == 1) {
 				way= 0;
 				i--;
@@ -125,23 +125,23 @@ public class Main {
 	
 	public static void back(int i,int j,int way) {
 
-		if(way == 0 && n > i+1 ) {
+		if(way == 0 ) {
 			if(arr[i+1][j]!=1 ) {
 				search(i+1,j,way);
 			}
 
-		}else if (way == 1 && j-1 > -1) {
+		}else if (way == 1 ) {
 			if(arr[i][j-1] !=1) {
 				
 				search(i,j-1,way);
 			}
 
-		}else if (way == 2 &&  i-1>-1 ) {
+		}else if (way == 2 ) {
 			if(arr[i-1][j] != 1) {
 				search(i-1,j,way);
 			}
 
-		}else if (way == 3 && m > j+1) {
+		}else if (way == 3) {
 			if(arr[i][j+1] !=1) {
 				
 				search(i,j+1,way);
