@@ -42,45 +42,58 @@ public class Main {
 		for(int i = 0 ; i < n ; i++) {
 			for(int j =0 ; j < n; j++) {
 				if(city[i][j] == 1) {
-					house.add(new int[]{i+1,j+1});
+					house.add(new int[]{i,j});
 				}else if(city[i][j] == 2) {
-					chicken.add(new int[] {i+1,j+1});
+					chicken.add(new int[] {i,j});
 				}
 			}
 		}
-		
+	
 		visited = new boolean[chicken.size()];
-	
-		combi(0,m,chicken.size()-1);
+		int ans = Integer.MAX_VALUE ;
+
+			for(int i = 1 ; i <=m ; i++) {
+				
+				combi(0,m,chicken.size());
+				ans = Math.min(ans,distance() );
+			}
+			chickennum.clear();
 		
-		int ans = 9999;
-		for(int i = 0 ; i < house.size(); i++) {
-			ans = Math.min(distance(house.get(i)[0],house.get(i)[1]),ans);
-		}
-	
-		System.out.println(ans);
+		
+		
+		System.out.println("답"+ ans);
 		
 
 	}
 	
 	
 	// 모든 집의 치킨거리를 구해야한다. 조합을 구해서 주어진 M개를 돌려 가장 최소 한의 개수를 구한다.
-	public static int distance(int i , int j) {
+	public static int distance() {
 
 		
-		int abs = 0;
+		int sum = 0;
 		for(int q = 0 ; q < chickennum.size();q++) {
 			String num =chickennum.get(q);
 			String tmp[] = num.split("");
 			for(int z = 0 ; z < chickennum.get(q).length(); z++) {
-				int absi = Math.abs(chicken.get(Integer.parseInt(tmp[z]))[0]-i);
-				int absj = Math.abs(chicken.get(Integer.parseInt(tmp[z]))[1]-j);
-				abs += absi+absj;
+				int abs = 0;
+				for(int t = 0 ; t < house.size(); t++) {
+					int absi = Math.abs(chicken.get(Integer.parseInt(tmp[z]))[0]-house.get(t)[0]);
+					int absj = Math.abs(chicken.get(Integer.parseInt(tmp[z]))[1]-house.get(t)[1]);
+//					System.out.println("치킨좌표 i"+chicken.get(Integer.parseInt(tmp[z]))[0]);
+//					System.out.println("치킨좌표 j"+chicken.get(Integer.parseInt(tmp[z]))[1]);
+//					System.out.println("집좌표 i"+house.get(t)[0]);
+//					System.out.println("집좌표 j"+house.get(t)[1]);
+					abs += (absi+absj);
+//					System.out.println("하나더하기"+abs+"absi"+absi+"absj"+absj);
+				}
+				sum +=abs;
+				System.out.println("한집을 돌았을때의 합:"+abs);
 			}
 		}
-		System.out.println("최소값"+abs);
+		System.out.println("최소값"+sum);
 		
-		return abs;
+		return sum;
 		
 	}
 	
@@ -90,15 +103,12 @@ public class Main {
 			StringBuilder sb= new StringBuilder();
 			for(int i = 0 ; i < max ;i ++) {
 				if(visited[i]) {
-					System.out.print(chicken.get(i)[0]+" "+chicken.get(i)[1]);
-					System.out.print(", ");
 					sb.append(i);
-					
 				}
 				
 			}
 			chickennum.add(sb.toString());
-			System.out.println();
+			System.out.println(chickennum);
 			
 //			System.out.println(ans);
 			
