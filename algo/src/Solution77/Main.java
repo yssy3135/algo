@@ -1,9 +1,6 @@
 package Solution77;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +9,7 @@ public class Main {
 	static ArrayList<int[]> house;
 	static boolean visited[];
 	static ArrayList<String> chickennum;
+	static int vs;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		//r과c는 1부터 시작한다.
@@ -22,8 +20,7 @@ public class Main {
 		chickennum = new ArrayList<String>();
 		int n = sc.nextInt();
 		int m = sc.nextInt();
-		
-		
+	
 		int city[][] = new int[n][n];
 		
 		for(int i = 0 ; i < n ; i++) {
@@ -50,48 +47,46 @@ public class Main {
 		}
 	
 		visited = new boolean[chicken.size()];
-		int ans = Integer.MAX_VALUE ;
+		vs = Integer.MAX_VALUE;
 
 			for(int i = 1 ; i <=m ; i++) {
 				
-				combi(0,m,chicken.size());
-				ans = Math.min(ans,distance() );
+				combi(0,i,chicken.size());
+				
 			}
 			chickennum.clear();
 		
 		
 		
-		System.out.println("답"+ ans);
+		System.out.println(vs);
 		
 
+		
+		
 	}
 	
 	
+	
 	// 모든 집의 치킨거리를 구해야한다. 조합을 구해서 주어진 M개를 돌려 가장 최소 한의 개수를 구한다.
-	public static int distance() {
+	public static int distance(ArrayList<Integer> select) {
 
-		
-		int sum = 0;
-		for(int q = 0 ; q < chickennum.size();q++) {
-			String num =chickennum.get(q);
-			String tmp[] = num.split("");
-			for(int z = 0 ; z < chickennum.get(q).length(); z++) {
-				int abs = 0;
-				for(int t = 0 ; t < house.size(); t++) {
-					int absi = Math.abs(chicken.get(Integer.parseInt(tmp[z]))[0]-house.get(t)[0]);
-					int absj = Math.abs(chicken.get(Integer.parseInt(tmp[z]))[1]-house.get(t)[1]);
-//					System.out.println("치킨좌표 i"+chicken.get(Integer.parseInt(tmp[z]))[0]);
-//					System.out.println("치킨좌표 j"+chicken.get(Integer.parseInt(tmp[z]))[1]);
-//					System.out.println("집좌표 i"+house.get(t)[0]);
-//					System.out.println("집좌표 j"+house.get(t)[1]);
-					abs += (absi+absj);
-//					System.out.println("하나더하기"+abs+"absi"+absi+"absj"+absj);
+//			System.out.println("=======================");
+			int sum = 0;
+			
+			for(int z = 0 ; z < house.size(); z++) {
+				int abs = Integer.MAX_VALUE;
+				for(int t = 0 ; t < select.size(); t++) {
+					int absi = Math.abs(chicken.get(select.get(t))[0]-house.get(z)[0]);
+					int absj = Math.abs(chicken.get(select.get(t))[1]-house.get(z)[1]);
+						
+					abs = Math.min(abs,absi+absj);
 				}
+//				System.out.println("한집의최소값:"+abs);
 				sum +=abs;
-				System.out.println("한집을 돌았을때의 합:"+abs);
 			}
-		}
-		System.out.println("최소값"+sum);
+			vs = Math.min(vs, sum);
+//			System.out.println("모든집의 합중 최소값"+sum);
+			
 		
 		return sum;
 		
@@ -100,17 +95,16 @@ public class Main {
 	public static void combi(int start,int m,int max) {
 
 		if(m == 0) {	
-			StringBuilder sb= new StringBuilder();
+			ArrayList<Integer> select = new ArrayList<Integer>();
+
 			for(int i = 0 ; i < max ;i ++) {
 				if(visited[i]) {
-					sb.append(i);
+					select.add(i);
 				}
 				
 			}
-			chickennum.add(sb.toString());
-			System.out.println(chickennum);
-			
-//			System.out.println(ans);
+
+			distance(select);
 			
 		}
 		
