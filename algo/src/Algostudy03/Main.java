@@ -51,7 +51,6 @@ public class Main {
 			if(mx >=0 && my >=0 && mx <r && my < c) {
 				int ctoi = Character.codePointAt(map[mx][my],0)-65;
 				boolean dif = alpha[ctoi];
-				printmap(visited);
 				if(!visited[mx][my] && !dif) {
 					alpha[ctoi] = true;
 					dfs(mx,my,r,c,cnt+1);
@@ -62,18 +61,7 @@ public class Main {
 		}
 
 	}
-	public static void printmap(boolean m[][]) {
-		
-		for(int i = 0 ; i < m.length;i++) {
-			for(int j = 0 ; j < m[i].length;j++) {
-				System.out.print(m[i][j]+ " ");
-			}
-			System.out.println("");
 
-		}
-		System.out.println("=====================");
-		
-	}
 	
 	
 }
