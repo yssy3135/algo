@@ -14,6 +14,7 @@ public class Main {
 	static int n;
 	static int m;
 	static int gocnt;
+	static boolean visited[][];
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -22,7 +23,7 @@ public class Main {
 		m = sc.nextInt();
 		gocnt = 0;
 		map = new int[n][m];
-
+		visited = new boolean[n][m];
 		
 		for(int i = 0 ; i < n ;i++) {
 			for(int j = 0;j < m ;j++ ) {
@@ -39,11 +40,12 @@ public class Main {
 			end[i] = sc.nextInt()-1;
 		}
 		map[start[0]][start[1]] = 0;
+		
 		bfs(start,end);
 		
-		for(int i = 0 ; i < n ;i++) {
-			System.out.println(Arrays.toString(map[i]));
-		}
+//		for(int i = 0 ; i < n ;i++) {
+//			System.out.println(Arrays.toString(map[i]));
+//		}
 		System.out.println(map[end[0]][end[1]]);
 		
 	}
@@ -52,9 +54,10 @@ public class Main {
 		Queue<int[]> que = new LinkedList<int[]>();
 		
 		que.add(start);
-	
+		
 		while(!que.isEmpty()) {
 			int now[] = que.poll();
+			visited[now[0]][now[1]] = true;
 			int dir = now[2];
 			for(int i = 0 ; i < 4 ;i++) {
 				
@@ -67,22 +70,27 @@ public class Main {
 				}else {
 					plus = 1;
 				}
-				
 				for(int j = 1;  j <= 3 ; j++) {
 					int mx = now[0] + a[i]*j;
 					int my = now[1] + b[i]*j;
 					if(mx >= 0 && my >= 0 && mx< n && my <m) {
-						if(map[mx][my] == 0 ) {
+						if(map[mx][my] == 0 && !visited[mx][my]) {
 							map[mx][my] = map[now[0]][now[1]]+1+plus;
 							que.add(new int[] {mx,my,i});
+						}else {
+							break;
 						}
-					}else {
-						break;
 					}
-				
+					if(mx == end[0] && my == end[1] && dir == end[2]) {
+						map[mx][my] = map[end[0]][end[1]]+plus;
+						return ;
+					}
+				}
+				for(int z = 0 ; z < n ;z++) {
+					System.out.println(Arrays.toString(map[z]));
 				}
 				
-
+				System.out.println("================================");
 			}
 			
 			
