@@ -3,12 +3,9 @@ package Solution84;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.StringTokenizer;
+
 
 
 public class Main {
@@ -90,10 +87,12 @@ public class Main {
 
 				if(mx >= 0 && my >= 0 && mx < n && my < m) {
 					
-					if(map[mx][my] == 0 &&  !visited[mx][my][dir]) {
-				
-						visited[mx][my][dir] = true;
-						que.add(new int[] {mx,my,dir,cnt+1});
+					if(map[mx][my] == 0 ) {
+						if(!visited[mx][my][dir]) {
+							
+							visited[mx][my][dir] = true;
+							que.add(new int[] {mx,my,dir,cnt+1});
+						}
 						
 					}else {
 						break;
