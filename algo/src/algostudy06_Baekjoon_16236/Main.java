@@ -1,4 +1,4 @@
-package algostydy06_Baekjoon_16236;
+package algostudy06_Baekjoon_16236;
 
 import java.io.BufferedReader;
 import java.io.IOException;
