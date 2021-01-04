@@ -71,18 +71,19 @@ public class Main {
 	
 	public static void bfs(int x, int y) {
 		Queue<Laser> que = new LinkedList<Laser>();
-		Laser laser = new Laser();
+	
 		
 		for(int i = 0 ; i < 4; i++) {
 			que.add(new Laser(x, y, 0, i));
 		}
 		
 		while(!que.isEmpty()) {
-			laser = que.poll();
+			Laser laser = que.poll();
 			x = laser.x;
 			y = laser.y;
 			int cnt = laser.cnt;
 			int way = laser.way;
+			
 			for(int i = 0 ; i < 4 ; i++) {
 				int mx = x + a[i];
 				int my = y + b[i];
@@ -91,9 +92,9 @@ public class Main {
 						
 						int next = way == i ? cnt : cnt+1;
 						if(visited[mx][my] == 0 || (visited[mx][my] !=0 && visited[mx][my] >= next)) {
-							System.out.println(next);
+						
 							visited[mx][my] = next;
-							que.add(new Laser(mx, my, next, way)); // 직진
+							que.add(new Laser(mx, my, next, i)); // 직진
 			
 						}
 					}
