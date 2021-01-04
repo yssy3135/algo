@@ -13,9 +13,31 @@ public class Main {
 	static int c[][];
 	static int a[] = {1,-1,0,0};
 	static int b[] = {0,0,-1,1};
-	static boolean visited[][][];
+	static int visited[][];
 	static int w;
 	static int h;
+	
+	
+	
+	public static class Laser{
+		int x;
+		int y;
+		int cnt;
+		int way;
+		public Laser() {
+			// TODO Auto-generated constructor stub
+		}
+		
+		public Laser(int x, int y, int cnt, int way) {
+			this.x = x;
+			this.y = y;
+			this.cnt = cnt;
+			this.way = way;
+		}
+
+		
+	}
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String tmp[] = br.readLine().split(" ");
@@ -24,7 +46,7 @@ public class Main {
 		h = Integer.parseInt(tmp[1]);
 		
 		map = new String[h][w];
-		visited = new boolean[h][w][4];
+		visited = new int[h][w];
 		c = new int[2][2];
 		
 		
@@ -40,56 +62,53 @@ public class Main {
 			}
 			
 		}
-		// 방향을 꺾을 때 마다 거울이 추가되어야한다.
 		
-		
+		bfs(c[0][0],c[0][1]);
 		
 		
 	}
 	
 	
 	public static void bfs(int x, int y) {
-		Queue<int[]> que = new LinkedList<int[]>();
+		Queue<Laser> que = new LinkedList<Laser>();
+		Laser laser = new Laser();
 		
-		// 좌표,개수,진행방향 -> 처음에는 4방향모두-1;
-		que.add(new int[] {x,y,0,-1});
+		for(int i = 0 ; i < 4; i++) {
+			que.add(new Laser(x, y, 0, i));
+		}
 		
 		while(!que.isEmpty()) {
-			int laser[] = que.poll();
-			x = laser[0];
-			y = laser[1];
-			int cnt = laser[2];
-			int way = laser[3];
-			
-			if(x == c[1][0] && y == c[1][1]) {
-				System.out.println(cnt);
-				return ;
-			}
-			
-			
+			laser = que.poll();
+			x = laser.x;
+			y = laser.y;
+			int cnt = laser.cnt;
+			int way = laser.way;
 			for(int i = 0 ; i < 4 ; i++) {
-				int mx = x+a[i];
-				int my = y+b[i];
-				
-				
+				int mx = x + a[i];
+				int my = y + b[i];
 				if(mx >= 0 && my >= 0 && mx <h && my < w) {
-					if(!visited[mx][my][way] && map[mx][my].equals(".")) {
-						if(way != i) {
-							que.add(new int[] {mx,my,cnt+1,i});
+					if( map[mx][my].equals(".") || map[mx][my].equals("C" )) {
+						
+						int next = way == i ? cnt : cnt+1;
+						if(visited[mx][my] == 0 || (visited[mx][my] !=0 && visited[mx][my] >= next)) {
+							System.out.println(next);
+							visited[mx][my] = next;
+							que.add(new Laser(mx, my, next, way)); // 직진
+			
 						}
-
 					}
-					
 				}
-				
-				
-				
+			
 			}
 			
+
+		}
+		
 		
 			
+		System.out.println(visited[c[1][0]][c[1][1]]);
 			
-		}
+			
 		
 		
 		
