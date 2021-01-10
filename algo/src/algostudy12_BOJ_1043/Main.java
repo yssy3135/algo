@@ -39,7 +39,6 @@ public class Main {
 			party[i] = Integer.parseInt(t[1]);
 			
 			for(int j = 1 ; j < t.length-1 ; j++) {
-
 				chk[Integer.parseInt(t[j])][Integer.parseInt(t[j+1])] = true;
 				chk[Integer.parseInt(t[j+1])][Integer.parseInt(t[j])] = true;
 				
@@ -48,7 +47,7 @@ public class Main {
 		
 
 		
-		for(int i = 1 ; i < N ;i++) {
+		for(int i = 1 ; i <= N ;i++) {
 			if(people[i]) {
 
 				dfs(N,i);
