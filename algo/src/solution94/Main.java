@@ -16,11 +16,16 @@ public class Main {
 			super();
 			this.weight = weight;
 			this.value = value;
+			
+			
 		}
+		
+		
 		
 	}
 	
-	
+	public static int dp[][];
+	public static Item item[];
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -29,33 +34,54 @@ public class Main {
 		int n = Integer.parseInt(st.nextToken());
 		int k = Integer.parseInt(st.nextToken());
 		
-		Item item[] = new Item[n];
+		dp = new int[n+1][k+1];
 		
-		for(int i = 0 ; i < n ; i++) {
+		item = new Item[n+1];
+		item[0] = new Item(0, 0);
+		
+		for(int i = 1 ; i <= n ; i++) {
 			st = new StringTokenizer(br.readLine());
 			int w = Integer.parseInt(st.nextToken());
 			int v = Integer.parseInt(st.nextToken());
 			
 			item[i] = new Item(w, v);
+			Arrays.fill(dp[i], -1);
 		}
 		
-		combi(4,0,new int[5],1);
+		System.out.println(backpack(n,k));
+		
+		for(int i = 0 ; i <= n ; i++) {
+			System.out.println(Arrays.toString(dp[i]));
+		}
 		
 		
 	}
-	public static void combi(int n,int cnt,int arr[],int start) {
-		if (cnt == n) {
-			System.out.println(Arrays.toString(arr));
-		}
+	
+	public static int backpack(int r, int c) {
+		System.out.println("r" + r);
+		if(r ==-1 || c == -1) return 0;
 		
-		for(int i = 0 ;i <=4 ; i++) {
-			arr[i] = i;
-			combi(n,cnt+1,arr,i+1);
+		
+		if(dp[r][c] == -1) {
+			dp[r][c] = 0;
+			
+			
+			if(item[r].weight > c) {
+				dp[r][c] = backpack(r-1,c);
+			}else {
+
+				dp[r][c] = Math.max(backpack(r-1,c), backpack(r-1,c-item[r].weight)+item[r].value);
+				
+				
+			}
 			
 		}
 		
 		
+		return dp[r][c];
 	}
+	
+	
 	
 	
 	
