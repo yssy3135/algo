@@ -21,17 +21,15 @@ public class Main {
 		
 		for(int i = 0 ; i < n ; i++) {
 			int num = Integer.parseInt(br.readLine());
-
-			boolean flag = false;
 			TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+			
 			for(int j = 0 ; j < num; j++) {
 				String tmp[] = br.readLine().split(" ");
-				if(flag) continue;
-			
+
 				if(tmp[0].equals("I")) {
 					if(map.containsKey(Integer.parseInt(tmp[1]))) {
 						
-						map.put(Integer.parseInt(tmp[1]), map.get(Integer.parseInt(tmp[1])+1));
+						map.put(Integer.parseInt(tmp[1]), map.get(Integer.parseInt(tmp[1]))+1);
 					}else {
 						map.put(Integer.parseInt(tmp[1]),1);
 					}
