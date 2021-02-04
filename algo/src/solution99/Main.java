@@ -34,7 +34,7 @@ public class Main {
 		
 		for(int i = 0 ; i < n; i++) {
 			if(ans <dp[i]) {
-				ans = dp[i];
+				ans = dp[i]; 
 			}
 		}
 		
