@@ -27,13 +27,9 @@ public class Main {
 		
 		
 		while(true) {
-			
-			if((end == n-1 && sum < s) || start == n-1) {
-				break;
-			}
-		
+
 //			System.out.println(sum);
-			if(sum >= s && start< end) {
+			if(sum >= s) {
 //				System.out.println(end+"검증"+start+"합"+sum);
 				min = Math.min(min, end-start+1);
 				sum -= arr[start];
