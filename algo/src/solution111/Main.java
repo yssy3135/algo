@@ -30,7 +30,7 @@ public class Main {
 
 //			System.out.println(sum);
 			if(sum >= s) {
-//				System.out.println(end+"검증"+start+"합"+sum);
+
 				min = Math.min(min, end-start+1);
 				sum -= arr[start];
 				start++;
