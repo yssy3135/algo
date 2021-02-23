@@ -32,13 +32,10 @@ public class Main {
 		
 		
 		while(start <= end ) {
-			System.out.println(sum);
-			System.out.println("반복");
-			
 			if(sum >= m) {
 				sum = sum - arr[start];
 				start++;
-			}else if(end == n-1) {
+			}else if(end == n) {
 				break;
 			}else {
 				sum = sum + arr[end];
