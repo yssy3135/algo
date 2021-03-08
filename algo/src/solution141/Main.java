@@ -80,7 +80,7 @@ public class Main {
 				cnt++;
 			}
 		}
-		if(cnt == n-1 && sum !=0) {
+		if(cnt == n-1) {
 			System.out.println(total-sum);
 		}else {
 			System.out.println(-1);
