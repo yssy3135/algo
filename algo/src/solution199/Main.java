@@ -45,14 +45,15 @@ public class Main {
 		
 
 		ArrayList<String> ans = new ArrayList<String>();
+		ArrayList<String> last = new ArrayList<String>();
 		
 		loop:
 		for(int i = k ; i > 0 ; i--) {
+			ans = suffle(num, i);
 			for(int j = k ; j > 0;j--) {
-				ans = suffle(num, i);
-				ans = suffle(ans, j);
+				last = suffle(ans, j);
 				
-				String word = ans.toString();
+				String word = last.toString();
 
 
 				if(word.equals(vs)) {
